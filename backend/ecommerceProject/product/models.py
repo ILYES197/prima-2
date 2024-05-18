@@ -41,7 +41,6 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0)
     totalReviewCount = models.IntegerField()
     brandName = models.CharField(max_length=100 , choices=brandName.choices)
-    #productCode = models.IntegerField()
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     stock = models.IntegerField(default=0)
 

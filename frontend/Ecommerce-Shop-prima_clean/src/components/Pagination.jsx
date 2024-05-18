@@ -25,23 +25,23 @@ const Pagination = () => {
             if(productsLoaderData.page === 1){
               return;
             }
-            handlePageChange(productsLoaderData.page - 1)
+            handlePageChange(productsLoaderData?.page - 1)
             window.scrollTo(0, 0)
           
           }}
         >
           <FaCircleArrowLeft />
         </button>
-        <button className="join-item btn text-2xl">Page {productsLoaderData.page}</button>
+        <button className="join-item btn text-2xl">Page {productsLoaderData?.page}</button>
         <button
           className="join-item btn text-4xl flex justify-center"
           onClick={() => {
 
-            if(productsLoaderData.productsLength < 10){
+            if(productsLoaderData?.productsLength < 10){
               return;
             }
 
-            handlePageChange(productsLoaderData.page + 1)
+            handlePageChange(productsLoaderData?.page + 1)
             window.scrollTo(0, 0)
           }
           }

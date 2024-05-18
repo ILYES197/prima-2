@@ -23,11 +23,17 @@ const Profile = () => {
 
   const getUserData = async () => {
     try {
-      const response = await axios(`http://localhost:3000/user/${id}`);
+      const response = await axios(`http://127.0.0.1:8000/api/userinfo/`,{
+        headers: {
+          Authorization: `Bearer ${id}`
+        } }
+      );
+
+      console.log(response)
       const data = response.data;
       setUserFormData({
-        name: data.name,
-        lastname: data.lastname,
+        name: data.first_name,
+        lastname: data.last_name,
         email: data.email,
         phone: data.phone,
         adress: data.adress,
@@ -51,11 +57,15 @@ const Profile = () => {
     e.preventDefault();
     try{
 
-      const getResponse = await axios(`http://localhost:3000/user/${id}`);
+      const getResponse = await axios(`http://127.0.0.1:8000/api/userinfo/`,{
+        headers: {
+          Authorization: `Bearer ${id}`
+        } 
+      });
       const userObj = getResponse.data;
 
       // saljemo get(default) request
-      const putResponse = await axios.put(`http://localhost:3000/user/${id}`, {
+      const putResponse = await axios.put(`http://127.0.0.1:8000/api/userinfo/${id}`, {
         id: id,
         name: userFormData.name,
         lastname: userFormData.lastname,

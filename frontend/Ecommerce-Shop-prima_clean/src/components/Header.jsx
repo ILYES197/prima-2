@@ -28,7 +28,11 @@ const Header = () => {
   const fetchWishlist = async () => {
     if(loginState){
       try {
-        const getResponse = await axios.get(`http://localhost:3000/user/${localStorage.getItem("id")}`);
+        const getResponse = await axios.get(`hhttp://127.0.0.1:8000/api/userinfo/`,{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('id')}`
+          } }
+        );
         const userObj = getResponse.data;
   
         store.dispatch(updateWishlist({userObj}));

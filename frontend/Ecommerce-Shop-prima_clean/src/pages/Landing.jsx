@@ -8,8 +8,8 @@ export const landingLoader = async () => {
   const response = await axios(
   'http://127.0.0.1:8000/api/products/'  );
   const data = response.data;
-    
-  return { products: data.products };
+  console.log(response.data)
+  return { products: data.products.slice(0,8) };
 };
 
 const Landing = () => {
@@ -31,7 +31,7 @@ const Landing = () => {
               key={product.id}
               id={product.id}
               title={product.name}
-              image={product.imageUrl}
+              image={product.image}
               rating={product.rating}
               price={product.price}
             />

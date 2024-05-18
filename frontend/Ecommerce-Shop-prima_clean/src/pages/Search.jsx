@@ -7,17 +7,21 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+    console.log(products)
   const handleSearch = async (e) => {
     e.preventDefault();
     setCurrentPage(prevState =>  1);
     setSearchTerm(prevState => e.target.search.value);
     try {
       const response = await axios(
-        `http://localhost:3000/products?q=${e.target.search.value}&&_page=${currentPage}`
+        `http://127.0.0.1:8000/api/products?keyword=${e.target.search.value}`
       );
+
+      console.log(response)
+      
       const data = response.data;
-      setProducts(data.data);
+      console.log(data)
+      setProducts(data.products);
     } catch (error) {
       console.log(error.response);
     }
@@ -26,13 +30,13 @@ const Search = () => {
   const handleSearchPagination = async () => {
     try {
         const response = await axios(
-          `http://localhost:3000/products`
+          `http://127.0.0.1:8000/api/products/`
         );
-        console.log(response);
+         
         const data = response.data;
-        setProducts(data.data);
+        setProducts(data.products);
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
       }
   }
 
@@ -83,7 +87,7 @@ const Search = () => {
               title={product.name}
               image={product.imageUrl}
               rating={product.rating}
-              price={product.price.current.value}
+              price={product.price}
               brandName={product.brandName}
             />
           ))}

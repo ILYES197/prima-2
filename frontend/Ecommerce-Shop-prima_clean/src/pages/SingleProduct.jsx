@@ -26,8 +26,8 @@ export const singleProductLoader = async ({ params }) => {
   const { id } = params;
 
   const response = await axios(`http://127.0.0.1:8000/api/products/${id}/`);
-
-  return { productData: response.data };
+  console.log(response.data)
+  return { productData: response.data.products };
 };
 
 const SingleProduct = () => {
@@ -56,15 +56,15 @@ const SingleProduct = () => {
     price: productData?.price?.current?.value,
     brandName: productData?.brandName,
     amount: quantity,
-    selectedSize: size || productData?.availableSizes[0],
+    selectedSize: size || productData,
     isInWishList:
       wishItems.find((item) => item.id === productData?.id + size) !==
       undefined,
   };
 
-  for (let i = 0; i < productData?.rating; i++) {
-    rating[i] = "full star";
-  }
+   //for (let i = 0; i < productData?.rating; i++) {
+  //  rating[i] = "full star";
+ // }
 
   const addToWishlistHandler = async (product) => {
     try {
@@ -114,39 +114,40 @@ const SingleProduct = () => {
     store.dispatch(removeFromWishlist({ userObj }));
     toast.success("Product removed from the wishlist!");
   };
-
+  console.log(productData)
   return (
     <>
       <SectionTitle title="Product page" path="Home | Shop | Product page" />
       <div className="grid grid-cols-2 max-w-7xl mx-auto mt-5 max-lg:grid-cols-1 max-lg:mx-5">
         <div className="product-images flex flex-col justify-center max-lg:justify-start">
           <img
-            src={`https://${productData?.additionalImageUrls[currentImage]}`}
+            src={`https://${productData?.image }` }  
+          
             className="w-96 text-center border border-gray-600 cursor-pointer"
             alt={productData.name}
           />
           <div className="other-product-images mt-1 grid grid-cols-3 w-96 gap-y-1 gap-x-2 max-sm:grid-cols-2 max-sm:w-64">
-            {productData?.additionalImageUrls.map((imageObj, index) => (
+           
               <img
-                src={`https://${imageObj}`}
+                src={`https://${productData.image}`}
                 key={nanoid()}
                 onClick={() => setCurrentImage(index)}
                 alt={productData.name}
                 className="w-32 border border-gray-600 cursor-pointer"
               />
-            ))}
+            
           </div>
         </div>
         <div className="single-product-content flex flex-col gap-y-5 max-lg:mt-2">
           <h2 className="text-5xl max-sm:text-3xl text-accent-content">
             {productData?.name}
           </h2>
-          <SingleProductRating rating={rating} productData={productData} />
+         
           <p className="text-3xl text-error">
-            ${productData?.price?.current?.value}
+            DA {productData?.price}
           </p>
           <div className="text-xl max-sm:text-lg text-accent-content">
-            {parse(productData?.description)}
+ 
           </div>
           {/* <div className="text-2xl">
             <SelectSize
@@ -232,16 +233,11 @@ const SingleProduct = () => {
             >
               In Stock: {productData?.isInStock ? "Yes" : "No"}
             </div>
-            <div className="badge bg-gray-700 badge-lg font-bold text-white p-5 mt-2">
-              SKU: {productData?.productCode}
-            </div>
+            
             <div className="badge bg-gray-700 badge-lg font-bold text-white p-5 mt-2">
               Category: {productData?.category}
             </div>
-            <div className="badge bg-gray-700 badge-lg font-bold text-white p-5 mt-2">
-              Production Date:{" "}
-              {productData?.productionDate?.substring(0, 10)}
-            </div>
+           
           </div>
         </div>
       </div>

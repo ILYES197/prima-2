@@ -45,24 +45,12 @@ export const shopLoader = async ({ request }) => {
 
   try {
     const response = await axios(
-      `http://127.0.0.1:8000/api/products/${
-        filterObj.brand === "all" ? "" : `brandName=${params.brand}`
-      }&${filterObj.category === "all" ? "" : `category=${params.category}`}&${
-        filterObj.gender === "all" ? "" : `gender=${params.gender}`
-      }&${
-        filterObj.order === "asc" || filterObj.order === "desc"
-          ? `_sort=name&_order=${filterObj.order}`
-          : filterObj.order === "price low"
-          ? `_sort=price.current.value&_order=asc`
-          : `_sort=price.current.value&_order=desc`
-      }&${filterObj.search && `q=${filterObj.search}`}&${
-        filterObj.price && `price.current.value_lte=${filterObj.price}`
-      }&${filterObj.in_stock === true && `isInStock=${filterObj.in_stock}`}&${`_page=${filterObj.current_page}&_limit=10&productionDate_gte=${filterObj.date}`}`
+      `http://127.0.0.1:8000/api/products/?name&brandName=${filterObj.brand}&category=${filterObj.category}&keyword=${filterObj.keyword}&${filterObj.in_stock? 'isInstock':""}&minPrice=${filterObj.price}`
     );
     const data = response.data;
     return {productsData: data, productsLength: data.length, page: filterObj.current_page};
   } catch (error) {
-    console.log(error.response);
+    console.log(error);
   }
   // /posts?views_gte=10
 
@@ -76,23 +64,23 @@ const Shop = () => {
 
   const productLoaderData = useLoaderData();
 
-
+console.log(productLoaderData.productsData.products)
   return (
     <>
       <SectionTitle title="Shop" path="Home | Shop" />
       <div className="max-w-7xl mx-auto mt-5">
         <Filters />
-        { productLoaderData.productsData.length === 0 && <h2 className="text-accent-content text-center text-4xl my-10">No products found for this filter</h2> }
+        { productLoaderData?.productsData.length === 0 && <h2 className="text-accent-content text-center text-4xl my-10">No products found for this filter</h2> }
         <div className="grid grid-cols-4 px-2 gap-y-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 shop-products-grid">
-          {productLoaderData.productsData.length !== 0 &&
-            productLoaderData.productsData.map((product) => (
+          {productLoaderData?.productsData.length !== 0 &&
+            productLoaderData?.productsData.products.map((product) => (
               <ProductElement
                 key={nanoid()}
                 id={product.id}
                 title={product.name}
                 image={product.imageUrl}
                 rating={product.rating}
-                price={product.price.current.value}
+                price={product.price}
                 brandName={product.brandName}
               />
             ))}

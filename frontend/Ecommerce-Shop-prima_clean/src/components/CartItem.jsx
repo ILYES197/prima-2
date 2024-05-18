@@ -2,12 +2,12 @@ import { useDispatch } from "react-redux";
 import { removeItem, updateCartAmount } from "../features/cart/cartSlice";
 
 
-const CartItem = ({ cartItem }) => {
+const CartItem = (  cartItem  ) => {
   const { id, title, price, image, amount, brandName, selectedSize } =
     cartItem;
 
     const dispatch = useDispatch();
-
+    console.log(cartItem)
   return (
     <article
       key={id}
