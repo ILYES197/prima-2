@@ -45,7 +45,7 @@ const ThankYou = () => {
 
   return (
     <> 
-      <SectionTitle title="Thank You" path="Home | Cart | Thank you" />
+      <SectionTitle title="payment" path="Home | Cart | payment" />
 
 
       

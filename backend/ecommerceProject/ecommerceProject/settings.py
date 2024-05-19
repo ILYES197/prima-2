@@ -22,6 +22,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
+    #'product.apps.SuitConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -151,5 +153,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Media
 
-MEDIA_ROOT = BASE_DIR /  "media/product/products_images"
-MEDIA_URL = '/media/product/products_images/'
+MEDIA_ROOT = os.path.join(BASE_DIR,"media/")
+MEDIA_URL = "media/"

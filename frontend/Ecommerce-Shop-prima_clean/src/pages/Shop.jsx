@@ -78,7 +78,7 @@ console.log(productLoaderData.productsData.products)
                 key={nanoid()}
                 id={product.id}
                 title={product.name}
-                image={product.imageUrl}
+                image={product.image}
                 rating={product.rating}
                 price={product.price}
                 brandName={product.brandName}

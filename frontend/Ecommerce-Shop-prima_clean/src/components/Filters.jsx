@@ -9,13 +9,16 @@ import FormCheckbox from "./FormCheckbox";
 const Filters = () => {
   const [selectCategoryList, setSelectCategoryList] = useState([
     "all",
-    "shoes",
     "Bidon",
     "Balai",
     "Raclette",
     "Chiffon",
     "textile",
     "liquide",
+    "Manche",
+    "Pelle",
+    "Mop",
+    "Frottoire ",
      
   ]);
 

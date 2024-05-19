@@ -121,7 +121,7 @@ const SingleProduct = () => {
       <div className="grid grid-cols-2 max-w-7xl mx-auto mt-5 max-lg:grid-cols-1 max-lg:mx-5">
         <div className="product-images flex flex-col justify-center max-lg:justify-start">
           <img
-            src={`https://${productData?.image }` }  
+            src={`http://127.0.0.1:8000${productData?.image }` }  
           
             className="w-96 text-center border border-gray-600 cursor-pointer"
             alt={productData.name}
@@ -129,7 +129,7 @@ const SingleProduct = () => {
           <div className="other-product-images mt-1 grid grid-cols-3 w-96 gap-y-1 gap-x-2 max-sm:grid-cols-2 max-sm:w-64">
            
               <img
-                src={`https://${productData.image}`}
+                src={`http://127.0.0.1:8000${productData.image}`}
                 key={nanoid()}
                 onClick={() => setCurrentImage(index)}
                 alt={productData.name}
